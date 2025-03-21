@@ -4,29 +4,37 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2 } from "lucide-react"; // ShadCN-compatible spinner
+import { Loader2 } from "lucide-react";
+import { connectToLessonSocket } from "../lib/socketHelpers";
 
 export const UrlSubmitter = () => {
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
 
   const handleSubmit = async () => {
     if (!url) return;
     setIsLoading(true);
 
     try {
-      // 1. Call backend API to trigger Bedrock/Claude content parsing
-      // 2. WebSocket event logic here (e.g., open lesson socket)
+      // Simulate Bedrock API call to parse lesson
+      const lessonId = await mockBedrockApiCall(url);
 
-      await new Promise((res) => setTimeout(res, 2000)); // simulate for now
-      
-      // Redirect or update app state here after successful flow
-      console.log("Submitted:", url);
+      // Connect to WebSocket server & start lesson
+      const ws = connectToLessonSocket(lessonId);
+      setSocket(ws);
+
     } catch (err) {
-      console.error("Error submitting URL:", err);
+      console.error("Error:", err);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const mockBedrockApiCall = async (url: string) => {
+    console.log("Simulating API call for:", url);
+    await new Promise((res) => setTimeout(res, 1500)); // Simulate latency
+    return "mock-lesson-id-123"; // Simulated lessonId from API
   };
 
   return (
