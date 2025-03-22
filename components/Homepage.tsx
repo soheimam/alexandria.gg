@@ -14,6 +14,7 @@ export const Homepage = () => {
   const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
+    console.log("Connecting to WebSocket");
     connect();
   }, [connect]);
 
@@ -26,7 +27,9 @@ export const Homepage = () => {
     }
 
     send({
-      userId: address,
+      userId: address, // TODO: change to user_id
+      name: address, // TODO: change to base name
+      id: address, // TODO: change to id (can be something unique)
       url,
       language,
       difficulty,
