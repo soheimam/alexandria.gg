@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAppStore } from "@/state/appStore";
 
 interface UrlSubmitterProps {
   onWebSocketSend: (url: string) => void;
@@ -15,10 +16,11 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const socket = useAppStore((s) => s.socket);
 
   const handleSubmit = async () => {
     if (!url) return;
-    if (!isConnectionReady) {
+    if (!isConnectionReady || !socket) {
       console.error("WebSocket connection not ready");
       return;
     }
@@ -26,7 +28,15 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
     setIsLoading(true);
 
     try {
+      // Send directly through the socket
+      socket.send(JSON.stringify({
+        type: "generate_course",
+        url
+      }));
+      
+      // Also call the provided callback for any additional handling
       await onWebSocketSend(url);
+      
       // Redirect to mocked lesson page
       router.push("/lesson/mocklesson");
     } catch (err) {
@@ -48,11 +58,11 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
       />
       <Button
         onClick={handleSubmit}
-        disabled={isLoading || !isConnectionReady}
+        disabled={isLoading || !isConnectionReady || !socket}
         className="rounded-pill w-full text-sm flex items-center justify-center gap-2"
       >
         {isLoading && <Loader2 className="animate-spin h-4 w-4" />}
-        {!isConnectionReady 
+        {!isConnectionReady || !socket
           ? "Connecting..." 
           : isLoading 
             ? "Generating..." 
