@@ -8,7 +8,7 @@ import { UrlSubmitter } from "@/components/urlSubmitter";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppStore } from "@/state/appStore";
 import { Language } from "@11labs/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 
