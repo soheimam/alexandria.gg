@@ -4,7 +4,7 @@ type LessonPageProps = {
   params: { id: string };
 };
 
-export default function LessonPage({ params }: LessonPageProps) {
+export default async function LessonPage({ params }: LessonPageProps) {
   const { id } = params;
 
   return (

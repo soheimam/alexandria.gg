@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { useAppStore } from "@/state/appStore";
 
 export const useWebSocket = (userId: string) => {
@@ -8,8 +8,15 @@ export const useWebSocket = (userId: string) => {
   const [isConnected, setIsConnected] = useState(false);
   const setSocket = useAppStore((s) => s.setSocket);
 
-  const connect = () => {
-    if (wsRef.current) return;
+  const connect = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      setIsConnected(true);
+      return;
+    }
+
+    if (wsRef.current?.readyState === WebSocket.CONNECTING) {
+      return;
+    }
 
     const ws = new WebSocket(
       `wss://1uncj7q7r0.execute-api.us-east-1.amazonaws.com/prod?userId=${userId}`
@@ -39,13 +46,15 @@ export const useWebSocket = (userId: string) => {
       console.error("WebSocket error:", err);
       setIsConnected(false);
     };
-  };
+  }, [userId, setSocket]);
 
-  const send = (data: any) => {
-    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+  const send = useCallback((data: any) => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify(data));
+    } else {
+      throw new Error("WebSocket is not connected");
     }
-  };
+  }, []);
 
   return { connect, send, ws: wsRef, isConnected };
 };
