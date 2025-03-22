@@ -8,48 +8,46 @@ export const DifficultySlider = () => {
   const setDifficulty = useAppStore((s) => s.setDifficulty);
 
   const labels = [
-    { icon: "🍼", label: "Easy", bgColor: "bg-green-100", textColor: "text-green-600", sliderColor: "bg-green-500" },
-    { icon: "🍎", label: "Medium", bgColor: "bg-orange-100", textColor: "text-orange-600", sliderColor: "bg-orange-500" },
-    { icon: "👨‍🏫", label: "Hard", bgColor: "bg-red-100", textColor: "text-red-600", sliderColor: "bg-red-500" },
+    { icon: "🍼", label: "Easy", textColor: "text-gray-500" },
+    { icon: "🍎", label: "Medium", textColor: "text-pink-500" },
+    { icon: "🤓", label: "Hard", textColor: "text-gray-500" },
   ];
 
   return (
-    <div className="flex flex-col items-center space-y-6 w-full p-6 bg-white rounded-2xl shadow-sm">
-      {/* Emoji Icons */}
-      <div className="flex justify-between w-full px-4">
+    <div className="flex flex-col items-center space-y-8 w-full max-w-md">
+      <h2 className="text-2xl font-bold text-black">Select Difficulty</h2>
+      
+      {/* Icons */}
+      <div className="flex justify-between w-full px-2">
         {labels.map((l, idx) => (
           <div 
             key={idx} 
-            className={`flex flex-col items-center ${idx + 1 === difficulty ? 'scale-110 transform transition-transform' : ''}`}
+            className={`flex flex-col items-center`}
           >
-            <div className={`p-3 ${l.bgColor} rounded-full mb-2 ${idx + 1 === difficulty ? 'ring-2 ring-offset-2 ring-blue-400' : ''}`}>
+            <div className={`${idx + 1 === difficulty ? 'bg-pink-100 p-3 rounded-full' : ''}`}>
               <span className="text-2xl">{l.icon}</span>
             </div>
-            <span className={`text-sm font-medium ${l.textColor}`}>{l.label}</span>
           </div>
         ))}
       </div>
 
       {/* Slider */}
-      <div className="w-full px-4">
+      <div className="w-full px-2">
         <style jsx global>{`
           [data-slot="slider-track"] {
             height: 8px !important;
-            background: #e5e7eb !important;
+            background: #E5E7EB !important;
             border-radius: 9999px !important;
           }
           [data-slot="slider-range"] {
-            background: ${labels[difficulty - 1].sliderColor} !important;
+            background: #EC4899 !important;
           }
           [data-slot="slider-thumb"] {
             width: 24px !important;
             height: 24px !important;
             background: white !important;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-            border: 2px solid ${labels[difficulty - 1].sliderColor} !important;
-          }
-          [data-slot="slider-thumb"]:hover {
-            transform: scale(1.1);
+            border: 2px solid #EC4899 !important;
           }
         `}</style>
         <Slider
@@ -62,9 +60,16 @@ export const DifficultySlider = () => {
         />
       </div>
 
-      {/* Selected Label */}
-      <div className={`text-sm px-4 py-2 rounded-full font-medium ${labels[difficulty - 1].bgColor} ${labels[difficulty - 1].textColor}`}>
-        Currently: {labels[difficulty - 1].label}
+      {/* Labels */}
+      <div className="flex justify-between w-full px-2">
+        {labels.map((l, idx) => (
+          <span 
+            key={idx} 
+            className={`text-sm font-medium ${idx + 1 === difficulty ? 'text-pink-500' : 'text-gray-500'}`}
+          >
+            {l.label}
+          </span>
+        ))}
       </div>
     </div>
   );
