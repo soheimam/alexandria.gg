@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 import { useAppStore } from "@/state/appStore";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { useAccount } from "wagmi";
 
 interface UrlSubmitterProps {
-  onWebSocketSend: (url: string) => void;
+  onWebSocketSend: (url: string, address: string) => void;
   isConnectionReady: boolean;
 }
 
 export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitterProps) => {
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const { address } = useAccount();
   const socket = useAppStore((s) => s.socket);
 
   const handleSubmit = async () => {
@@ -24,21 +24,14 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
       console.error("WebSocket connection not ready");
       return;
     }
-    
-    setIsLoading(true);
 
     try {
-      // Send directly through the socket
-      socket.send(JSON.stringify({
-        type: "generate_course",
-        url
-      }));
-      
-      // Also call the provided callback for any additional handling
-      await onWebSocketSend(url);
-      
-      // Redirect to mocked lesson page
-      router.push("/lesson/mocklesson");
+      if (!address) {
+        console.error("No address found");
+        return;
+      }
+      setIsLoading(true);
+      onWebSocketSend(url, address);
     } catch (err) {
       console.error("Error submitting:", err);
     } finally {
@@ -63,9 +56,9 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
       >
         {isLoading && <Loader2 className="animate-spin h-4 w-4" />}
         {!isConnectionReady || !socket
-          ? "Connecting..." 
-          : isLoading 
-            ? "Generating..." 
+          ? "Connecting..."
+          : isLoading
+            ? "Generating..."
             : "Generate Course →"
         }
       </Button>

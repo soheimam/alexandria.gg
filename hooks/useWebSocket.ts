@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
 import { useAppStore } from "@/state/appStore";
+import { useCallback, useRef, useState } from "react";
 
 export const useWebSocket = (userId: string) => {
   const wsRef = useRef<WebSocket | null>(null);
@@ -49,6 +49,9 @@ export const useWebSocket = (userId: string) => {
   }, [userId, setSocket]);
 
   const send = useCallback((data: any) => {
+    console.log("Sending message:", data);
+    console.log("WebSocket readyState:", wsRef.current?.readyState);
+    console.log("The socket is ", wsRef.current);
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify(data));
     } else {

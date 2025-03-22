@@ -1,12 +1,12 @@
 "use client";
-import { UrlSubmitter } from "@/components/urlSubmitter";
-import { MascotAgent } from "@/components/mascotAgent";
-import { LanguageSelector } from "@/components/lamguageSelector";
 import { DifficultySlider } from "@/components/difficultySlider";
+import { LanguageSelector } from "@/components/lamguageSelector";
+import { MascotAgent } from "@/components/mascotAgent";
+import { UrlSubmitter } from "@/components/urlSubmitter";
 
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppStore } from "@/state/appStore";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 
 export const Homepage = () => {
   const { connect, send, isConnected } = useWebSocket("123");
@@ -17,17 +17,16 @@ export const Homepage = () => {
     connect();
   }, [connect]);
 
-  const handleWebSocketSend = async (url: string) => {
+  const handleWebSocketSend = async (url: string, address: string) => {
     if (!isConnected) {
-      await connect();
+      connect();
       if (!isConnected) {
         throw new Error("Failed to establish connection");
       }
     }
 
-    await send({
-      type: "generate_course",
-      userId: "123",
+    send({
+      userId: address,
       url,
       language,
       difficulty,
@@ -41,18 +40,18 @@ export const Homepage = () => {
       <h1 className="text-3xl font-bold text-[var(--foreground)] leading-tight">
         Create bite-sized lessons from any link
       </h1>
-        {/* Headline */}
+      {/* Headline */}
       <LanguageSelector />
-     
+
       <DifficultySlider />
 
-      <UrlSubmitter 
+      <UrlSubmitter
         onWebSocketSend={handleWebSocketSend}
         isConnectionReady={isConnected}
       />
 
-   
-    
+
+
     </div>
   );
 };
