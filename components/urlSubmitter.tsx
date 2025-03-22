@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppStore } from "@/state/appStore";
+import { useName } from "@coinbase/onchainkit/identity";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { base } from "viem/chains";
 import { useAccount } from "wagmi";
 
 interface UrlSubmitterProps {
-  onWebSocketSend: (url: string, address: string) => void;
+  onWebSocketSend: (url: string, address: string, name: string) => void;
   isConnectionReady: boolean;
 }
 
@@ -16,6 +18,7 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
+  const { data: name } = useName({ address: address as `0x${string}`, chain: base });
   const socket = useAppStore((s) => s.socket);
 
   const handleSubmit = async () => {
@@ -31,7 +34,8 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
         return;
       }
       setIsLoading(true);
-      onWebSocketSend(url, address);
+      console.log("Sending to websocket:", url, address, name);
+      onWebSocketSend(url, address, name);
     } catch (err) {
       console.error("Error submitting:", err);
     } finally {

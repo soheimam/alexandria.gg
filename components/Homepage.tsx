@@ -23,7 +23,7 @@ export const Homepage = () => {
     connect();
   }, [connect]);
 
-  const handleWebSocketSend = async (url: string, address: string) => {
+  const handleWebSocketSend = async (url: string, address: string, name: string) => {
     if (!isConnected) {
       connect();
       if (!isConnected) {
@@ -33,7 +33,7 @@ export const Homepage = () => {
 
     send({
       user_id: address, // TODO: change to user_id
-      name: address, // TODO: change to base name
+      name: name || address, // TODO: change to base name
       id: address, // TODO: change to id (can be something unique)
       url,
       language: language.toLowerCase() as Language,
