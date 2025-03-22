@@ -15,21 +15,27 @@ export const LanguageSelector = () => {
   ];
 
   return (
-    <Select value={language} onValueChange={setLanguage}>
-      <SelectTrigger className="w-full bg-white rounded-[32px] px-6 py-4 text-base border-0">
-        <SelectValue placeholder="Select language" />
-      </SelectTrigger>
-      <SelectContent className="bg-white rounded-[24px] border-0 shadow-lg">
-        {languages.map((lang) => (
-          <SelectItem
-            key={lang.code}
-            value={lang.code}
-            className="text-base py-3 px-6 cursor-pointer rounded-[20px] hover:bg-gray-50"
-          >
-            {lang.name}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="w-full space-y-2">
+      <Select value={language} onValueChange={setLanguage}>
+        <SelectTrigger
+          className="w-full rounded-2xl border border-gray-200 px-6 py-4 text-base bg-white bg-opacity-60 text-gray-800 hover:bg-opacity-100 transition-all duration-300 shadow-sm"
+        >
+          <SelectValue placeholder="Select language" />
+        </SelectTrigger>
+        <SelectContent
+          className="bg-white rounded-2xl border border-gray-200 text-gray-800 shadow-lg backdrop-blur-sm overflow-hidden"
+        >
+          {languages.map((lang) => (
+            <SelectItem
+              key={lang.code}
+              value={lang.code}
+              className="text-base py-4 px-6 cursor-pointer rounded-xl hover:bg-indigo-50 transition-colors duration-200 focus:bg-indigo-50 m-1"
+            >
+              {lang.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
