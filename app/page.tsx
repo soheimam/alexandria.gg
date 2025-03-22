@@ -1,23 +1,35 @@
 import Image from "next/image";
 import { UrlSubmitter } from "./components/urlSubmitter";
+import { MascotAgent } from "./components/mascotAgent";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--background)] flex flex-col justify-between p-6">
-    <div className="flex-1 flex flex-col justify-center items-center text-center space-y-6">
-      <h1 className="text-2xl font-semibold text-[var(--foreground)]">
-        Turn any link into a bite-sized lesson
-      </h1>
-      <p className="text-sm text-[var(--secondary)] max-w-sm">
-        Paste a URL or video link and let our AI create a personalized micro-learning experience for you.
-      </p>
+    <main className="min-h-screen bg-[var(--background)] flex flex-col justify-between p-6 space-y-8">
+      {/* Header Section */}
+      <div className="flex-1 flex flex-col justify-center items-center text-center space-y-6">
+        {/* Mascot */}
+        <MascotAgent />
 
-      <UrlSubmitter />
-    </div>
+        {/* Headline */}
+        <h1 className="text-3xl font-bold text-[var(--foreground)] leading-tight">
+          Create bite-sized lessons from any link
+        </h1>
 
-    <div className="mt-10 text-center text-xs text-[var(--secondary)]">
-      © {new Date().getFullYear()} YourAppName. Learn smarter, faster.
-    </div>
-  </main>
+        {/* Subtext */}
+        <p className="text-base text-[var(--secondary)] max-w-xs">
+          Paste a URL or video and let your AI study buddy craft a personalized learning journey.
+        </p>
+
+        {/* Url Submitter */}
+        <div className="w-full max-w-md">
+          <UrlSubmitter />
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="text-center text-xs text-[var(--secondary)]">
+        © {new Date().getFullYear()} YourAppName. Learning made simple.
+      </div>
+    </main>
   );
 }

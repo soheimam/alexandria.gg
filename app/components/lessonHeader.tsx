@@ -3,15 +3,22 @@ import { LessonMeta } from "../types/lesson";
 
 export const LessonHeader = ({ meta }: { meta: LessonMeta }) => {
   return (
-    <Card className="bg-[var(--muted)] shadow-soft p-4 rounded-xl">
-      <CardContent className="space-y-2 p-0">
-        <h2 className="text-lg font-semibold text-[var(--foreground)]">{meta.title}</h2>
-        <p className="text-xs text-[var(--secondary)]">{meta.estimatedDuration}</p>
-        <ul className="list-disc list-inside text-sm text-[var(--secondary)] space-y-1">
+    <Card className="bg-[var(--muted)] shadow-soft rounded-2xl p-5">
+      <CardContent className="space-y-4 p-0">
+        <h2 className="text-xl font-bold text-[var(--foreground)] leading-tight">{meta.title}</h2>
+        <p className="text-sm text-[var(--secondary)]">{meta.estimatedDuration}</p>
+
+        <div className="space-y-2">
           {meta.objectives.map((obj, idx) => (
-            <li key={idx}>{obj}</li>
+            <div
+              key={idx}
+              className="flex items-start gap-2 bg-[var(--pastel-blue)] rounded-xl px-3 py-2"
+            >
+              <span className="text-[var(--primary)] text-base">✅</span>
+              <p className="text-sm text-[var(--foreground)]">{obj}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       </CardContent>
     </Card>
   );
