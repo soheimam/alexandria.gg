@@ -58,8 +58,6 @@ export const Homepage = () => {
         isConnectionReady={isConnected}
       />
 
-
-
     </div>
   );
 };

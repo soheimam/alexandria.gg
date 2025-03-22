@@ -26,9 +26,9 @@ export const useWebSocket = (userId: string) => {
       setInCall(false);
     },
     clientTools: {
-      openLink: (parameters: { text: string }) => {
-        window.open(parameters.text, "_blank");
-        return "The link is now open in a new tab";
+      flash_cards: (parameters: { text: string }) => {
+        console.log("Flashcards:", parameters.text);
+        return "The flashcards are now open in a new tab";
       },
     },
     onMessage(props: { message: string; source: Role; audio?: string }) {
