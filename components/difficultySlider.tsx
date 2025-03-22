@@ -117,8 +117,8 @@ export const DifficultySlider = () => {
                       <button
                         onClick={() => setDifficulty(option.value)}
                         className={`w-full h-full rounded-full flex items-center justify-center text-4xl shadow-md ${difficulty === option.value
-                            ? "bg-white border-2 border-pink-400"
-                            : "bg-white border border-gray-200 hover:bg-gray-50 hover:border-pink-200"
+                          ? "bg-white border-2 border-pink-400"
+                          : "bg-white border border-gray-200 hover:bg-gray-50 hover:border-pink-200"
                           }`}
                         aria-label={`Set difficulty to ${option.label}`}
                       >
