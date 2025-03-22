@@ -75,7 +75,7 @@ export const Homepage = () => {
       <h1 className="text-3xl font-bold text-[var(--foreground)] leading-tight">
         Create bite-sized lessons from any link
       </h1>
-
+        {/* Headline */}
       <LanguageSelector />
      
       <DifficultySlider />
@@ -85,7 +85,7 @@ export const Homepage = () => {
         isConnectionReady={isConnected && !isConnecting}
       />
 
-      {/* Headline */}
+   
     
     </div>
   );
