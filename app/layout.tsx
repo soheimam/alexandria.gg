@@ -2,6 +2,7 @@ import { Providers } from "@/providers/providers";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import '@coinbase/onchainkit/styles.css'; 
 import "./globals.css";
 
 const geistSans = Geist({
