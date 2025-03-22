@@ -11,6 +11,7 @@
   "dependencies": {
     "@11labs/react": "^0.0.8",
     "@coinbase/onchainkit": "^0.38.0",
+    "@emotion/is-prop-valid": "^1.3.1",
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slider": "^1.2.3",
     "@radix-ui/react-slot": "^1.1.2",
@@ -21,6 +22,7 @@
     "framer-motion": "^12.5.0",
     "lucide-react": "^0.483.0",
     "next": "15.2.3",
+    "pino-pretty": "^13.0.0",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

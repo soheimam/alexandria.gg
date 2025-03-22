@@ -10,13 +10,7 @@ import {
 export function WalletConnect() {
   return (
     <div className="flex justify-end">
-      <Wallet
-        draggable={true}
-        draggableStartingPosition={{
-          x: window.innerWidth - 300,
-          y: window.innerHeight - 100,
-        }}
-      >
+      <Wallet>
         <ConnectWallet>
           <Avatar className="h-6 w-6" />
           <Name />

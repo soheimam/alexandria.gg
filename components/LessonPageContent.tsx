@@ -1,8 +1,8 @@
 "use client";
 
 import { mockOnchainKitLesson } from "@/app/lib/mockLesson";
-import { AgentInputBar } from "@/components/AgentInputBar";
-import { LessonHeader } from "@/components/lessonHeader";
+// import { AgentInputBar } from "@/components/AgentInputBar";
+
 import { VoiceTranscript } from "@/components/voiceTranscript";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppStore } from "@/state/appStore";
@@ -25,9 +25,9 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
 
   return (
     <>
-      <LessonHeader meta={mockOnchainKitLesson.meta} />
+      
       <VoiceTranscript text={transcript || "Welcome to your course!"} />
-      <AgentInputBar onSubmit={(msg) => console.log("User sent:", msg)} />
+      {/* <AgentInputBar onSubmit={(msg) => console.log("User sent:", msg)} /> */}
     </>
   );
 };

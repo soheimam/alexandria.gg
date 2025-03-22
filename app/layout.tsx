@@ -33,6 +33,9 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <div className="text-center text-xs text-[var(--secondary)]">
+        © {new Date().getFullYear()} Alexandria. Turn any link into a lesson.
+      </div>
       </body>
     </html>
   );
