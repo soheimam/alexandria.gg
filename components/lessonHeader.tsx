@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { LessonMeta } from "../types/lesson";
+import { LessonMeta } from "@/app/lib/lesson";
 
 export const LessonHeader = ({ meta }: { meta: LessonMeta }) => {
   return (

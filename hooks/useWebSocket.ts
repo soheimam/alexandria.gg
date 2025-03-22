@@ -1,8 +1,11 @@
-import { useRef } from "react";
+"use client";
+
+import { useRef, useState } from "react";
 import { useAppStore } from "@/state/appStore";
 
 export const useWebSocket = (userId: string) => {
   const wsRef = useRef<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
   const setSocket = useAppStore((s) => s.setSocket);
 
   const connect = () => {
@@ -16,6 +19,7 @@ export const useWebSocket = (userId: string) => {
 
     ws.onopen = () => {
       console.log("WebSocket connected");
+      setIsConnected(true);
     };
 
     ws.onmessage = (msg) => {
@@ -28,10 +32,12 @@ export const useWebSocket = (userId: string) => {
       console.log("WebSocket closed");
       wsRef.current = null;
       setSocket(null as unknown as WebSocket);
+      setIsConnected(false);
     };
 
     ws.onerror = (err) => {
       console.error("WebSocket error:", err);
+      setIsConnected(false);
     };
   };
 
@@ -41,5 +47,5 @@ export const useWebSocket = (userId: string) => {
     }
   };
 
-  return { connect, send, ws: wsRef };
+  return { connect, send, ws: wsRef, isConnected };
 };

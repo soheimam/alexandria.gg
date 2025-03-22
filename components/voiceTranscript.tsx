@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { playVoiceAgentMessage } from "../lib/voiceAgent";
+import { playVoiceAgentMessage } from "@/app/lib/voiceAgent";
 import { Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 

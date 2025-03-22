@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { LessonMeta, LessonModule } from "../app/lib/lesson";
+import { Payload } from "@/types/payload";
 
 type ChatMessage = { sender: "user" | "ai"; message: string };
 
@@ -18,6 +19,9 @@ type AppState = {
   socket: WebSocket | null;
   setSocket: (ws: WebSocket) => void;
 
+  //payload
+  payload: Payload | null;
+  setPayload: (payload: Payload) => void;
 
   // AI agent state
   chatHistory: ChatMessage[];
@@ -47,6 +51,8 @@ export const useAppStore = create<AppState>((set) => ({
   setDifficulty: (level) => set({ difficulty: level }),
   socket: null,
   setSocket: (ws) => set({ socket: ws }),
+  payload: null,
+  setPayload: (payload) => set({ payload: payload }),
 
   // Actions
   setLessonId: (id) => set({ lessonId: id }),

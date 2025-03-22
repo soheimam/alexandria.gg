@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardContent } from "../../components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import dynamic from "next/dynamic";
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div), {

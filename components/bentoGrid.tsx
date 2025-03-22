@@ -1,6 +1,6 @@
-import { UserInfoCard } from "./userInfoCard";
-import { StudyStatsCard } from "./studyStatsCard";
-import { PayoutCard } from "./payoutCard";
+import { UserInfoCard } from "@/components/userInfoCard";
+import { StudyStatsCard } from "@/components/studyStatsCard";
+import { PayoutCard } from "@/components/payoutCard";
 
 export const BentoGrid = () => {
   return (

@@ -3,9 +3,9 @@
 import { useEffect } from "react";
 import { useAppStore } from "@/state/appStore";
 import { mockOnchainKitLesson } from "@/app/lib/mockLesson";
-import { LessonHeader } from "./lessonHeader";
-import { VoiceTranscript } from "./voiceTranscript";
-import { AgentInputBar } from "./AgentInputBar";
+import { LessonHeader } from "@/components/lessonHeader";
+import { VoiceTranscript } from "@/components/voiceTranscript";
+import { AgentInputBar } from "@/components/AgentInputBar";
 
 export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
   const { setLessonMeta, setLessonModules } = useAppStore();
