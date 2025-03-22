@@ -11,6 +11,11 @@ export const useWebSocket = (userId: string) => {
   const [isConnected, setIsConnected] = useState(false);
   const [inCall, setInCall] = useState(false);
   const setSocket = useAppStore((s) => s.setSocket);
+  const [spokenText, setSpokenText] = useState("");
+  const [prevSpokenText, setPrevSpokenText] = useState("");
+  const { setTranscript, toggleFlashCardsModal } = useAppStore();
+
+  console.log("useWebSocket initialized with userId:", userId);
 
   const { isSpeaking, endSession, startSession } = useConversation({
     onConnection: async () => {
@@ -28,11 +33,31 @@ export const useWebSocket = (userId: string) => {
     clientTools: {
       flash_cards: (parameters: { text: string }) => {
         console.log("Flashcards:", parameters.text);
+        toggleFlashCardsModal();
         return "The flashcards are now open in a new tab";
       },
     },
     onMessage(props: { message: string; source: Role; audio?: string }) {
-      console.log(props)
+      console.log("Received message:", props);
+      if (props.source === "ai") {
+        console.log("AI speaking:", props.message);
+        setTranscript(`${props.message} `);
+
+        // Always create a new string reference by adding a timestamp 
+        // to force React to recognize the state change
+        const timestamp = Date.now();
+        const text = props.message.trim();
+
+        console.log(`Setting text with timestamp ${timestamp}:`, text);
+
+        // Update local state only
+        setSpokenText(`${text} `); // Space at end creates new reference
+        setPrevSpokenText(text);
+      } else if (props.source === "user") {
+        console.log("User speaking, clearing AI text");
+        setSpokenText("");
+        setPrevSpokenText("");
+      }
     },
   });
 
@@ -121,5 +146,5 @@ export const useWebSocket = (userId: string) => {
     }
   }, []);
 
-  return { connect, send, ws: wsRef, isConnected };
+  return { connect, send, ws: wsRef, isConnected, isSpeaking, spokenText };
 };

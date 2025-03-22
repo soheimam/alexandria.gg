@@ -6,28 +6,44 @@ import { mockOnchainKitLesson } from "@/app/lib/mockLesson";
 import { VoiceTranscript } from "@/components/voiceTranscript";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppStore } from "@/state/appStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
   const { setLessonMeta, setLessonModules } = useAppStore();
-  const transcript = useAppStore((s) => s.transcript);
-  const { connect, send, isConnected } = useWebSocket(lessonId);
+  const { connect, spokenText, isSpeaking } = useWebSocket(lessonId);
+  const [displayText, setDisplayText] = useState("");
+  const [displaySpeaking, setDisplaySpeaking] = useState(false);
+
+  console.log("LessonPageContent rendering with spokenText:", spokenText);
 
   useEffect(() => {
     // In the real app, you'll fetch lesson data by lessonId
     console.log("Loaded lessonId:", lessonId);
     connect();
     console.log("Connected to WebSocket");
-    // Mock: always loads the same mock lesson
     setLessonMeta(mockOnchainKitLesson.meta);
     setLessonModules(mockOnchainKitLesson.modules);
-  }, [lessonId]);
+  }, [lessonId, connect, setLessonMeta, setLessonModules]);
+
+  // Update the display text when spokenText changes
+  useEffect(() => {
+    console.log("spokenText changed in LessonPageContent:", spokenText);
+    if (spokenText) {
+      console.log("Setting display text to:", spokenText);
+      setDisplayText(spokenText);
+      setDisplaySpeaking(isSpeaking);
+    }
+  }, [spokenText, isSpeaking]);
 
   return (
-    <>
-      
-      <VoiceTranscript text={transcript || "Welcome to your course!"} />
-      {/* <AgentInputBar onSubmit={(msg) => console.log("User sent:", msg)} /> */}
-    </>
+    <div className="flex flex-col space-y-4 w-full max-w-2xl mx-auto p-4">
+      <VoiceTranscript
+        text={displayText}
+        isSpeaking={displaySpeaking}
+        key={displayText} // Force re-render when text changes
+      />
+      {/* <FlashCardModal isOpen={true} onClose={() => { }} cards={[]} /> */}
+      {/* <AgentBar spokenText={spokenText} /> */}
+    </div>
   );
 };

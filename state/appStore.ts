@@ -19,6 +19,10 @@ type AppState = {
   socket: WebSocket | null;
   setSocket: (ws: WebSocket) => void;
 
+  //flashcards
+  toggleFlashCardsModal: () => void;
+  flashCardsOpen: boolean;
+
   //payload
   payload: Payload | null;
   setPayload: (payload: Payload) => void;
@@ -40,6 +44,7 @@ type AppState = {
 export const useAppStore = create<AppState>((set) => ({
   // Initial state
   lessonId: "",
+  flashCardsOpen: false,
   lessonMeta: null,
   lessonModules: [],
   currentModuleIndex: 0,
@@ -60,6 +65,7 @@ export const useAppStore = create<AppState>((set) => ({
   setLessonModules: (modules) => set({ lessonModules: modules }),
   nextModule: () => set((state) => ({ currentModuleIndex: state.currentModuleIndex + 1 })),
   setTranscript: (text) => set({ transcript: text }),
+  toggleFlashCardsModal: () => set((state) => ({ flashCardsOpen: !state.flashCardsOpen })),
   pushChat: (message) => set((state) => ({ chatHistory: [...state.chatHistory, message] })),
   resetLesson: () =>
     set({
