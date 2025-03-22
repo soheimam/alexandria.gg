@@ -1,4 +1,5 @@
 "use client";
+
 import { DifficultySlider } from "@/components/difficultySlider";
 import { LanguageSelector } from "@/components/lamguageSelector";
 import { MascotAgent } from "@/components/mascotAgent";
@@ -6,11 +7,15 @@ import { UrlSubmitter } from "@/components/urlSubmitter";
 
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppStore } from "@/state/appStore";
+import { Language } from "@11labs/react";
 import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 
 export const Homepage = () => {
-  const { connect, send, isConnected } = useWebSocket("123");
-  const { language, difficulty } = useAppStore();
+  const { address } = useAccount();
+  const { connect, send, isConnected } = useWebSocket(address as string);
+  const language = useAppStore((s) => s.language);
+  const difficulty = useAppStore((s) => s.difficulty);
   const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
@@ -27,11 +32,11 @@ export const Homepage = () => {
     }
 
     send({
-      userId: address, // TODO: change to user_id
+      user_id: address, // TODO: change to user_id
       name: address, // TODO: change to base name
       id: address, // TODO: change to id (can be something unique)
       url,
-      language,
+      language: language.toLowerCase() as Language,
       difficulty,
     });
   };

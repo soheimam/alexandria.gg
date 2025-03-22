@@ -1,6 +1,6 @@
+import { Payload } from "@/app/types/payload";
 import { create } from "zustand";
 import { LessonMeta, LessonModule } from "../app/lib/lesson";
-import { Payload } from "@/types/payload";
 
 type ChatMessage = { sender: "user" | "ai"; message: string };
 
@@ -45,7 +45,7 @@ export const useAppStore = create<AppState>((set) => ({
   currentModuleIndex: 0,
   chatHistory: [],
   transcript: "",
-  language: "English",
+  language: "en",
   setLanguage: (lang) => set({ language: lang }),
   difficulty: 1,
   setDifficulty: (level) => set({ difficulty: level }),
