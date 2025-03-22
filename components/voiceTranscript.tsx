@@ -14,7 +14,7 @@ export const VoiceTranscript = ({ text }: { text: string }) => {
   }, [text]);
 
   return (
-    <div className="bg-[var(--pastel-blue)] rounded-xl p-4 shadow-soft text-center min-h-screen flex items-center justify-center relative">
+    <div className="bg-[var(--pastel-blue)] rounded-xl p-4 shadow-soft text-center  flex items-center justify-center relative">
       {isSpeaking && (
         <Loader2 className="animate-spin absolute right-4 top-4 h-5 w-5 text-[var(--secondary)]" />
       )}

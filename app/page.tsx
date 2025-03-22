@@ -14,9 +14,7 @@ export default function Home() {
       </Card>
 
       {/* Footer */}
-      <div className="text-center text-xs text-[var(--secondary)]">
-        © {new Date().getFullYear()} Alexandria. Turn any link into a lesson.
-      </div>
+
     </main>
   );
 }

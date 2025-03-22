@@ -34,13 +34,13 @@ export const AgentInputBar = ({ onSubmit }: { onSubmit: (msg: string) => void })
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         placeholder="Type your question here..."
-        className="flex-1 rounded-3xl text-sm px-5 py-3 bg-[var(--muted)] border-none shadow-inner focus:ring-0 focus:outline-none placeholder:text-[var(--secondary)]"
+        className="h-14 rounded-lg border-gray-200 bg-white flex-1 px-6"
       />
       <motion.div whileTap={{ scale: 0.95 }}>
         <Button
           onClick={handleSubmit}
           disabled={!inputText.trim()}
-          className="rounded-3xl px-4 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm hover:shadow-md transition"
+          className="h-14 rounded-lg bg-pink-500 hover:bg-pink-600 text-white px-6 font-medium text-lg pink"
         >
           <Send size={18} />
         </Button>
