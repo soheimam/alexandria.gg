@@ -1,10 +1,10 @@
 // /app/lesson/page.tsx
 "use client";
 
-import { LessonHeader } from "../components/lessonHeader";
-import { VoiceTranscript } from "../components/voiceTranscript";
-import { AgentInputBar } from "../components/AgentInputBar";
-import { mockOnchainKitLesson } from "../lib/mockLesson";
+import { LessonHeader } from "@/components/lessonHeader";
+import { VoiceTranscript } from "@/components/voiceTranscript";
+import { AgentInputBar } from "@/components/AgentInputBar";
+import { mockOnchainKitLesson } from "@/app/lib/mockLesson";
 
 export default function LessonOverview() {
   return (

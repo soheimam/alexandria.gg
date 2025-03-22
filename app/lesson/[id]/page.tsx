@@ -1,4 +1,4 @@
-import { LessonPageContent } from "../../components/LessonPageContent";
+import { LessonPageContent } from "@/components/LessonPageContent";
 
 type LessonPageProps = {
   params: { id: string };

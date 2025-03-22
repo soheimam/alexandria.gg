@@ -1,4 +1,4 @@
-import { BentoGrid } from "../components/bentoGrid";
+import { BentoGrid } from "@/components/bentoGrid";
 
 export default function ProfilePage() {
   return (

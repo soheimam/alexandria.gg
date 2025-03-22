@@ -11,6 +11,13 @@ type AppState = {
   currentModuleIndex: number;
   language: string;
   setLanguage: (lang: string) => void;
+  difficulty: number; // 1 = easy, 2 = medium, 3 = hard
+  setDifficulty: (level: number) => void;
+
+  //websocket
+  socket: WebSocket | null;
+  setSocket: (ws: WebSocket) => void;
+
 
   // AI agent state
   chatHistory: ChatMessage[];
@@ -36,6 +43,10 @@ export const useAppStore = create<AppState>((set) => ({
   transcript: "",
   language: "English",
   setLanguage: (lang) => set({ language: lang }),
+  difficulty: 1,
+  setDifficulty: (level) => set({ difficulty: level }),
+  socket: null,
+  setSocket: (ws) => set({ socket: ws }),
 
   // Actions
   setLessonId: (id) => set({ lessonId: id }),

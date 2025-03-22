@@ -1,7 +1,9 @@
-import Image from "next/image";
-import { UrlSubmitter } from "./components/urlSubmitter";
-import { MascotAgent } from "./components/mascotAgent";
-import { LanguageSelector } from "./components/lamguageSelector";
+
+import { UrlSubmitter } from "@/components/urlSubmitter";
+import { MascotAgent } from "@/components/mascotAgent";
+import { LanguageSelector } from "@/components/lamguageSelector";
+import { DifficultySlider } from "@/components/difficultySlider";
+import { AgentInputBar } from "@/components/AgentInputBar";
 
 export default function Home() {
   return (
@@ -23,8 +25,9 @@ export default function Home() {
 
         {/* Url Submitter */}
         <div className="w-full max-w-md space-y-4">
+        <LanguageSelector />
           <UrlSubmitter />
-          <LanguageSelector />
+         
         </div>
       </div>
 
