@@ -1,7 +1,7 @@
 "use client";
 
 import { DifficultySlider } from "@/components/difficultySlider";
-import { LanguageSelector } from "@/components/lamguageSelector";
+import { LanguageSelector } from "@/components/languageSelector";
 import { MascotAgent } from "@/components/mascotAgent";
 import { UrlSubmitter } from "@/components/urlSubmitter";
 
