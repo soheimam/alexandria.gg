@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { UrlSubmitter } from "./components/urlSubmitter";
 import { MascotAgent } from "./components/mascotAgent";
+import { LanguageSelector } from "./components/lamguageSelector";
 
 export default function Home() {
   return (
@@ -21,8 +22,9 @@ export default function Home() {
         </p>
 
         {/* Url Submitter */}
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md space-y-4">
           <UrlSubmitter />
+          <LanguageSelector />
         </div>
       </div>
 

@@ -9,6 +9,8 @@ type AppState = {
   lessonMeta: LessonMeta | null;
   lessonModules: LessonModule[];
   currentModuleIndex: number;
+  language: string;
+  setLanguage: (lang: string) => void;
 
   // AI agent state
   chatHistory: ChatMessage[];
@@ -32,6 +34,8 @@ export const useAppStore = create<AppState>((set) => ({
   currentModuleIndex: 0,
   chatHistory: [],
   transcript: "",
+  language: "English",
+  setLanguage: (lang) => set({ language: lang }),
 
   // Actions
   setLessonId: (id) => set({ lessonId: id }),
