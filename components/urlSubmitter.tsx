@@ -60,10 +60,10 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
       >
         {isLoading ? <Loader2 className="animate-spin h-5 w-5 mr-2" /> : null}
         {!isConnectionReady || !socket
-          ? "Connecting..."
+          ? "Login"
           : isLoading
             ? "Learning..."
-            : "Start Learning"
+            : "Learn"
         }
       </Button>
     </div>
