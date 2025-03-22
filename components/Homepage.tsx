@@ -8,7 +8,8 @@ import { UrlSubmitter } from "@/components/urlSubmitter";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppStore } from "@/state/appStore";
 import { Language } from "@11labs/react";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useAccount } from "wagmi";
 
 export const Homepage = () => {
@@ -16,7 +17,11 @@ export const Homepage = () => {
   const { connect, send, isConnected } = useWebSocket(address as string);
   const language = useAppStore((s) => s.language);
   const difficulty = useAppStore((s) => s.difficulty);
-  const [isConnecting, setIsConnecting] = useState(false);
+  const router = useRouter();
+
+  const generateId = () => {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
 
   useEffect(() => {
     console.log("Connecting to WebSocket");
@@ -31,14 +36,17 @@ export const Homepage = () => {
       }
     }
 
+    const id = generateId();
     send({
       user_id: address, // TODO: change to user_id
       name: name || address, // TODO: change to base name
-      id: address, // TODO: change to id (can be something unique)
+      id,
       url,
       language: language.toLowerCase() as Language,
       difficulty,
     });
+
+    router.push(`/lesson/${id}`);
   };
 
   return (
@@ -46,7 +54,7 @@ export const Homepage = () => {
       {/* Mascot */}
       <MascotAgent />
       <h1 className="text-3xl font-bold text-[var(--foreground)] leading-tight">
-        Create bite-sized lessons from any link
+        Turn any link into a lesson
       </h1>
       {/* Headline */}
       <LanguageSelector />
