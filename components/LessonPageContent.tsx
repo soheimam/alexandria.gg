@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { useAppStore } from "../../state/appStore";
-import { mockOnchainKitLesson } from "../lib/mockLesson";
+import { useAppStore } from "@/state/appStore";
+import { mockOnchainKitLesson } from "@/app/lib/mockLesson";
 import { LessonHeader } from "./lessonHeader";
 import { VoiceTranscript } from "./voiceTranscript";
 import { AgentInputBar } from "./AgentInputBar";
