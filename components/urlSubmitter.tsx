@@ -44,26 +44,26 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
   };
 
   return (
-    <div className="w-full flex gap-2 items-center">
+    <div className="w-full space-y-4">
       <Input
         type="url"
         placeholder="Paste URL here"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
         disabled={isLoading || !isConnectionReady}
-        className="h-14 rounded-lg border-gray-200 bg-white flex-1 px-6"
+        className="h-16 rounded-2xl border-gray-200 bg-white bg-opacity-60 text-gray-700 flex-1 px-6 placeholder-gray-400 shadow-sm transition-all duration-300 focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300"
       />
       <Button
         onClick={handleSubmit}
         disabled={isLoading || !isConnectionReady || !socket}
-        className="h-14 rounded-lg bg-pink-500 hover:bg-pink-600 text-white px-6 font-medium text-lg pink"
+        className="h-16 w-full rounded-2xl bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 text-white px-6 font-medium text-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
       >
         {isLoading ? <Loader2 className="animate-spin h-5 w-5 mr-2" /> : null}
         {!isConnectionReady || !socket
           ? "Connecting..."
           : isLoading
             ? "Learning..."
-            : "Learn"
+            : "Start Learning"
         }
       </Button>
     </div>
