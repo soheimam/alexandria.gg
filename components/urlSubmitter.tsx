@@ -56,7 +56,7 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
       <Button
         onClick={handleSubmit}
         disabled={isLoading || !isConnectionReady || !socket}
-        className="h-14 rounded-lg bg-pink-500 hover:bg-pink-600 text-white px-14 font-medium text-lg pink"
+        className="h-14 rounded-lg bg-pink-500 hover:bg-pink-600 text-white px-6 font-medium text-lg pink"
       >
         {isLoading ? <Loader2 className="animate-spin h-5 w-5 mr-2" /> : null}
         {!isConnectionReady || !socket
