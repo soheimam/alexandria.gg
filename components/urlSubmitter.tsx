@@ -44,26 +44,26 @@ export const UrlSubmitter = ({ onWebSocketSend, isConnectionReady }: UrlSubmitte
   };
 
   return (
-    <div className="w-full space-y-3">
+    <div className="w-full flex gap-2 items-center">
       <Input
         type="url"
-        placeholder="Paste a URL here..."
+        placeholder="Paste URL here"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
         disabled={isLoading || !isConnectionReady}
-        className="bg-[var(--muted)] rounded-pill text-sm px-4 py-3"
+        className="h-14 rounded-lg border-gray-200 bg-white flex-1 px-6"
       />
       <Button
         onClick={handleSubmit}
         disabled={isLoading || !isConnectionReady || !socket}
-        className="rounded-pill w-full text-sm flex items-center justify-center gap-2"
+        className="h-14 rounded-lg bg-pink-500 hover:bg-pink-600 text-white px-14 font-medium text-lg pink"
       >
-        {isLoading && <Loader2 className="animate-spin h-4 w-4" />}
+        {isLoading ? <Loader2 className="animate-spin h-5 w-5 mr-2" /> : null}
         {!isConnectionReady || !socket
           ? "Connecting..."
           : isLoading
-            ? "Generating..."
-            : "Generate Course →"
+            ? "Learning..."
+            : "Learn"
         }
       </Button>
     </div>

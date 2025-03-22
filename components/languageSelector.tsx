@@ -16,15 +16,15 @@ export const LanguageSelector = () => {
 
   return (
     <Select value={language} onValueChange={setLanguage}>
-      <SelectTrigger className="w-full rounded-pill bg-[var(--muted)] px-4 py-3 text-[var(--foreground)] shadow-soft">
+      <SelectTrigger className="w-full bg-white rounded-[32px] px-6 py-4 text-base border-0">
         <SelectValue placeholder="Select language" />
       </SelectTrigger>
-      <SelectContent className="bg-[var(--muted)] rounded-2xl">
+      <SelectContent className="bg-white rounded-[24px] border-0 shadow-lg">
         {languages.map((lang) => (
           <SelectItem
             key={lang.code}
             value={lang.code}
-            className="rounded-xl text-[var(--foreground)] hover:bg-[var(--pastel-blue)]"
+            className="text-base py-3 px-6 cursor-pointer rounded-[20px] hover:bg-gray-50"
           >
             {lang.name}
           </SelectItem>
