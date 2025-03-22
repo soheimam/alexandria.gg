@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { playVoiceAgentMessage } from "@/app/lib/voiceAgent";
+import { AnimatePresence, motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export const VoiceTranscript = ({ text }: { text: string }) => {
   const prevText = useRef("");
@@ -11,21 +10,7 @@ export const VoiceTranscript = ({ text }: { text: string }) => {
 
   useEffect(() => {
     if (!text || text === prevText.current) return;
-
     prevText.current = text;
-
-    const speak = async () => {
-      try {
-        setIsSpeaking(true);
-        await playVoiceAgentMessage(text);
-      } catch (err) {
-        console.error("Voice agent error:", err);
-      } finally {
-        setIsSpeaking(false);
-      }
-    };
-
-    speak();
   }, [text]);
 
   return (
