@@ -5,11 +5,14 @@ import { LessonCardSkeleton } from "@/components/LessonCardSkeleton";
 import { Navigation } from "@/components/navigation";
 import { WalletConnect } from "@/components/walletConnect";
 import { useRecommendedLessons } from "@/hooks/useRecommendedLessons";
+import { useName } from "@coinbase/onchainkit/identity";
 import { useEffect, useState } from "react";
+import { base } from "viem/chains";
 import { useAccount } from "wagmi";
 
 export default function LessonDiscoveryPage() {
     const { address } = useAccount();
+    const { data: name } = useName({ address: address as `0x${string}`, chain: base });
     const { lessons, isLoading, isError, refresh } = useRecommendedLessons(address as string, {
         revalidateOnFocus: true,
         refreshInterval: 0,
@@ -175,6 +178,7 @@ export default function LessonDiscoveryPage() {
                             filteredLessons.map((item) => (
                                 <LessonCard
                                     key={item.SK}
+                                    username={name || address as string}
                                     id={item.id}
                                     topic={item.content.topic}
                                     language={item.content.language}
