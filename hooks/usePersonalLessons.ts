@@ -39,12 +39,12 @@ interface ErrorResponse {
 }
 
 /**
- * Custom hook for fetching recommended lesson content from Alexandria API
+ * Custom hook for fetching user's personal lessons from Alexandria API
  * 
  * @param options - Additional SWR configuration options
  * @returns SWR response with data, error, and loading state
  */
-export function useRecommendedLessons(
+export function usePersonalLessons(
     user_id: string,
     options?: {
         revalidateOnFocus?: boolean,
@@ -56,7 +56,7 @@ export function useRecommendedLessons(
         const response = await fetch(url);
 
         if (!response.ok) {
-            const error = new Error('Failed to fetch recommended lessons') as Error & {
+            const error = new Error('Failed to fetch personal lessons') as Error & {
                 status: number;
                 info: any;
             };
@@ -69,9 +69,9 @@ export function useRecommendedLessons(
         return response.json();
     };
 
-    // Use the recommended query parameter instead of personal
+    // Use the personal query parameter instead of recommended
     const limit = options?.limit || 10;
-    const url = `https://api.alexandria.gg/v1/content?recommended=true&limit=${limit}&user_id=${user_id}`;
+    const url = `https://api.alexandria.gg/v1/content?personal=true&limit=${limit}&user_id=${user_id}`;
 
     const {
         data,

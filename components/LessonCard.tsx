@@ -22,9 +22,24 @@ interface LessonCardProps {
     };
     sourceUrl?: string;
     creator?: string;
+    paid?: boolean;
+    txHash?: string;
+    paidAt?: string;
 }
 
-export const LessonCard = ({ id, topic, username, language, difficulty, reward, sourceUrl, creator }: LessonCardProps) => {
+export const LessonCard = ({
+    id,
+    topic,
+    username,
+    language,
+    difficulty,
+    reward,
+    sourceUrl,
+    creator,
+    paid,
+    txHash,
+    paidAt
+}: LessonCardProps) => {
     const router = useRouter();
     const { address } = useAccount();
     const { connect, send, isConnected } = useWebSocket(address as `0x${string}`, id);
@@ -112,7 +127,7 @@ export const LessonCard = ({ id, topic, username, language, difficulty, reward, 
         >
             <Card className="bg-white border border-pink-100 rounded-2xl shadow-sm overflow-hidden h-full transition-shadow hover:shadow-md relative">
                 {/* Top accent bar */}
-                <div className="h-3 bg-pink-500 w-full"></div>
+                <div className="h-5 bg-pink-500 w-full relative z-20"></div>
 
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-pink-50 z-0"></div>
@@ -159,6 +174,21 @@ export const LessonCard = ({ id, topic, username, language, difficulty, reward, 
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                 {reward.amount} {reward.currency} reward
                             </span>
+                        )}
+                        {paid && txHash && (
+                            <a
+                                href={`https://basescan.org/tx/${txHash}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
+                                title={paidAt ? `Paid on ${new Date(paidAt).toLocaleDateString()}` : "Reward paid"}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 mr-1">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                                </svg>
+                                Paid
+                            </a>
                         )}
                         {creator && (
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pink-100 text-pink-800">
