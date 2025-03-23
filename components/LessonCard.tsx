@@ -110,12 +110,24 @@ export const LessonCard = ({ id, topic, username, language, difficulty, reward, 
             className={`cursor-pointer h-full ${isLoading ? 'opacity-70' : ''}`}
             onClick={handleCardClick}
         >
-            <Card className="bg-white border border-purple-100 rounded-2xl shadow-sm overflow-hidden h-full transition-shadow hover:shadow-md">
-                <div className="h-3 bg-purple-600 w-full"></div>
-                <CardContent className="p-6 space-y-4">
+            <Card className="bg-white border border-pink-100 rounded-2xl shadow-sm overflow-hidden h-full transition-shadow hover:shadow-md relative">
+                {/* Top accent bar */}
+                <div className="h-3 bg-pink-500 w-full"></div>
+
+                {/* Background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-pink-50 z-0"></div>
+
+                {/* Decorative bubbles */}
+                <div className="absolute right-0 bottom-0 w-24 h-24 overflow-hidden pointer-events-none opacity-30">
+                    <div className="absolute w-10 h-10 rounded-full bg-pink-200 -right-4 -bottom-4"></div>
+                    <div className="absolute w-5 h-5 rounded-full bg-pink-300 right-6 bottom-2"></div>
+                    <div className="absolute w-3 h-3 rounded-full bg-pink-400 right-2 bottom-8"></div>
+                </div>
+
+                <CardContent className="p-6 space-y-4 relative z-10">
                     <div className="flex items-start">
                         <div className="flex-grow pr-3">
-                            <h3 className="text-xl font-bold text-purple-900 leading-tight line-clamp-2">{topic}</h3>
+                            <h3 className="text-xl font-bold text-pink-800 leading-tight line-clamp-2">{topic}</h3>
                         </div>
                         <div className="flex items-center space-x-1 flex-shrink-0 mt-0.5">
                             {sourceUrl && (
@@ -124,7 +136,7 @@ export const LessonCard = ({ id, topic, username, language, difficulty, reward, 
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="flex items-center justify-center p-1 rounded-full text-gray-500 hover:text-purple-600 hover:bg-purple-50 transition-all"
+                                    className="flex items-center justify-center p-1 rounded-full text-gray-500 hover:text-pink-500 hover:bg-pink-50 transition-all"
                                     aria-label="View source"
                                     title="View source"
                                 >
@@ -149,7 +161,7 @@ export const LessonCard = ({ id, topic, username, language, difficulty, reward, 
                             </span>
                         )}
                         {creator && (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pink-100 text-pink-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 mr-1">
                                     <path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
                                 </svg>
@@ -161,9 +173,9 @@ export const LessonCard = ({ id, topic, username, language, difficulty, reward, 
                     {isLoading && (
                         <div className="flex justify-center items-center mt-2">
                             <div className="flex space-x-1">
-                                <div className="h-1.5 w-1.5 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                <div className="h-1.5 w-1.5 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                <div className="h-1.5 w-1.5 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                <div className="h-1.5 w-1.5 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                <div className="h-1.5 w-1.5 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                <div className="h-1.5 w-1.5 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                             </div>
                         </div>
                     )}
