@@ -28,10 +28,6 @@ export const FlashCard: React.FC<FlashCardProps> = ({
 
     const handleFlip = (e: React.MouseEvent) => {
         if (isActive) {
-            // Prevent flip if clicking on action buttons
-            if ((e.target as HTMLElement).closest(`.${styles.actionButton}`)) {
-                return;
-            }
             setIsFlipped(!isFlipped);
         }
     };
@@ -49,22 +45,6 @@ export const FlashCard: React.FC<FlashCardProps> = ({
                 .then(() => onSwipe && onSwipe('left'));
         } else {
             controls.start({ x: 0, opacity: 1 });
-        }
-    };
-    
-    const handleWrongClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (isActive && onSwipe) {
-            controls.start({ x: '-100%', opacity: 0 })
-                .then(() => onSwipe('left'));
-        }
-    };
-    
-    const handleCorrectClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (isActive && onSwipe) {
-            controls.start({ x: '100%', opacity: 0 })
-                .then(() => onSwipe('right'));
         }
     };
 
@@ -125,25 +105,6 @@ export const FlashCard: React.FC<FlashCardProps> = ({
                     <p>{card.answer}</p>
                 </motion.div>
             </div>
-            
-            {isActive && (
-                <div className={styles.fixedActionButtons}>
-                    <button 
-                        className={`${styles.actionButton} ${styles.wrongButton}`} 
-                        aria-label="Wrong"
-                        onClick={handleWrongClick}
-                    >
-                        ✕
-                    </button>
-                    <button 
-                        className={`${styles.actionButton} ${styles.correctButton}`} 
-                        aria-label="Correct"
-                        onClick={handleCorrectClick}
-                    >
-                        ✓
-                    </button>
-                </div>
-            )}
         </motion.div>
     );
 }; 

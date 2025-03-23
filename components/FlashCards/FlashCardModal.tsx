@@ -45,7 +45,7 @@ export const FlashCardModal: React.FC<FlashCardModalProps> = ({
                 key={card.id}
                 card={card}
                 isActive={idx === 0}
-                index={idx}
+                index={currentIndex + idx}
                 totalCards={cards.length}
                 onSwipe={idx === 0 ? handleSwipe : undefined}
             />

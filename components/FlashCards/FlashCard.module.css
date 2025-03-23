@@ -1,7 +1,7 @@
 .cardContainer {
   width: 100%;
   max-width: 400px;
-  aspect-ratio: 3/4;
+  aspect-ratio: 4/3;
   perspective: 1000px;
   cursor: pointer;
   touch-action: pan-y;
@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  padding: 30px;
+  padding: 24px;
   box-sizing: border-box;
   background: white;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -43,7 +43,7 @@
 }
 
 .cardFront h3 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   text-align: center;
   margin: 0;
   flex-grow: 1;
@@ -56,7 +56,7 @@
 }
 
 .cardBack p {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   text-align: center;
   margin: 0;
   flex-grow: 1;
@@ -76,71 +76,20 @@
   font-weight: 500;
 }
 
-.fixedActionButtons {
-  position: absolute;
-  bottom: -60px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 80px;
-  width: 100%;
-}
-
-.actionButton {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.4rem;
-  color: white;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.actionButton:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-.wrongButton {
-  background-color: #f3f4f6;
-  color: #333;
-}
-
-.correctButton {
-  background-color: #ec4899;
-  color: white;
-}
-
 @media (max-width: 768px) {
   .cardContainer {
     max-width: 100%;
   }
   
   .cardFace {
-    padding: 24px;
+    padding: 20px;
   }
   
   .cardFront h3 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
   
   .cardBack p {
-    font-size: 1.2rem;
-  }
-  
-  .fixedActionButtons {
-    bottom: -50px;
-    gap: 60px;
-  }
-  
-  .actionButton {
-    width: 50px;
-    height: 50px;
+    font-size: 1.1rem;
   }
 }
