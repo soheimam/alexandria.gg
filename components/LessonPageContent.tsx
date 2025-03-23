@@ -72,6 +72,35 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
 
   return (
     <div className="flex flex-col space-y-4 w-full max-w-2xl mx-auto p-4">
+      {content && (
+        <div className="mb-2">
+          <div className="flex justify-between items-center mb-3">
+            <div>
+              <h2 className="text-xl font-bold text-purple-900">{content.content.topic || "Your Lesson"}</h2>
+              {content.content.difficulty && (
+                <div className="mt-1">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    {content.content.difficulty} level
+                  </span>
+                </div>
+              )}
+            </div>
+            <button
+              onClick={() => toggleFlashCardsModal()}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M12 8v8" />
+                <path d="M8 12h8" />
+              </svg>
+              Flash Cards
+            </button>
+          </div>
+          <div className="h-px bg-purple-200 w-full"></div>
+        </div>
+      )}
+
       <VoiceTranscript
         text={spokenText}
         isSpeaking={isSpeaking}

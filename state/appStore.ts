@@ -47,7 +47,7 @@ export const useAppStore = create<AppState>((set) => ({
   transcript: "",
   language: "en",
   setLanguage: (lang) => set({ language: lang }),
-  difficulty: 1,
+  difficulty: 5,
   setDifficulty: (level) => set({ difficulty: level }),
   socket: null,
   setSocket: (ws) => set({ socket: ws }),
