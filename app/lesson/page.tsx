@@ -146,7 +146,7 @@ export default function LessonDiscoveryPage() {
             <div className="max-w-6xl mx-auto">
                 <div className="flex flex-col gap-6">
                     {/* Header */}
-                    <header className="relative z-10 w-full max-w-3xl mx-auto mb-6">
+                    <header className="relative z-10 w-full  mx-auto mb-6">
                         <div className="bg-white bg-opacity-80 backdrop-blur-md rounded-[24px] p-6 border border-pink-100 shadow-lg text-center relative overflow-hidden">
                             {/* Subtle background gradient */}
                             <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-pink-50 z-0"></div>
