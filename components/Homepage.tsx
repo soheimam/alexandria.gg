@@ -18,8 +18,16 @@ export const Homepage = () => {
   const difficulty = useAppStore((s) => s.difficulty);
   const router = useRouter();
 
-  const generateId = () => {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  const generateId = (url: string) => {
+    // Simple hash function for URL
+    let hash = 0;
+    for (let i = 0; i < url.length; i++) {
+      const char = url.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    // Convert to positive hex string and take first 12 characters
+    return Math.abs(hash).toString(16).substring(0, 12);
   }
 
   useEffect(() => {
@@ -35,7 +43,7 @@ export const Homepage = () => {
       }
     }
 
-    const id = generateId();
+    const id = generateId(url);
     send({
       user_id: address,
       name: name || address, // TODO: change to base name

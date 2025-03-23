@@ -67,10 +67,11 @@ export const useWebSocket = (userId: string, lessonId: string) => {
       const data = JSON.parse(msg.data);
       console.log("Incoming message:", data);
 
-      if (data.message === "Payment successful") {
+      if (data.type === "NOTIFICATION") {
         // Show toast notification for successful payment
         toast.success("Payment Successful!", {
           description: `You received ${data.amount} tokens for lesson completion.`,
+          duration: 10000,
           action: {
             label: "View Transaction",
             onClick: () => window.open(`https://basescan.org/tx/${data.txHash}`, "_blank"),
