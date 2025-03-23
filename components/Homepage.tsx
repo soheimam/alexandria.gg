@@ -13,7 +13,7 @@ import { useAccount } from "wagmi";
 
 export const Homepage = () => {
   const { address } = useAccount();
-  const { connect, send, isConnected } = useWebSocket(address as string);
+  const { connect, send, isConnected } = useWebSocket(address as string, "1");
   const language = useAppStore((s) => s.language);
   const difficulty = useAppStore((s) => s.difficulty);
   const router = useRouter();
@@ -37,7 +37,7 @@ export const Homepage = () => {
 
     const id = generateId();
     send({
-      user_id: address, // TODO: change to user_id
+      user_id: address,
       name: name || address, // TODO: change to base name
       id,
       url,

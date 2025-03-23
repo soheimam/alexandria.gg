@@ -2,7 +2,7 @@ import { Providers } from "@/providers/providers";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import '@coinbase/onchainkit/styles.css'; 
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,10 +33,11 @@ export default function RootLayout({
       >
         <Providers>
           {children}
+          <Toaster />
         </Providers>
         <div className="text-center text-xs text-[var(--secondary)]">
-        © {new Date().getFullYear()} Alexandria. Turn any link into a lesson.
-      </div>
+          © {new Date().getFullYear()} Alexandria. Turn any link into a lesson.
+        </div>
       </body>
     </html>
   );

@@ -1,18 +1,19 @@
 "use client";
 
-import { mockOnchainKitLesson } from "@/app/lib/mockLesson";
-// import { AgentInputBar } from "@/components/AgentInputBar";
-
 import { VoiceTranscript } from "@/components/voiceTranscript";
+import { useLessonContent } from "@/hooks/useLessonContent";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { useAppStore } from "@/state/appStore";
 import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
+import { FlashCardModal } from "./FlashCards/FlashCardModal";
 
 export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
-  const { setLessonMeta, setLessonModules } = useAppStore();
-  const { connect, spokenText, isSpeaking } = useWebSocket(lessonId);
-  const [displayText, setDisplayText] = useState("");
-  const [displaySpeaking, setDisplaySpeaking] = useState(false);
+  const { flashCardsOpen, toggleFlashCardsModal } = useAppStore();
+  const { address } = useAccount();
+  const { connect, spokenText, isSpeaking } = useWebSocket(address as `0x${string}`, lessonId);
+  const [firstSpeak, setFirstSpeak] = useState(false);
+  const { content, refresh } = useLessonContent(address as `0x${string}`, lessonId);
 
   console.log("LessonPageContent rendering with spokenText:", spokenText);
 
@@ -21,28 +22,24 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
     console.log("Loaded lessonId:", lessonId);
     connect();
     console.log("Connected to WebSocket");
-    setLessonMeta(mockOnchainKitLesson.meta);
-    setLessonModules(mockOnchainKitLesson.modules);
-  }, [lessonId, connect, setLessonMeta, setLessonModules]);
+  }, [lessonId, connect]);
 
-  // Update the display text when spokenText changes
   useEffect(() => {
-    console.log("spokenText changed in LessonPageContent:", spokenText);
-    if (spokenText) {
-      console.log("Setting display text to:", spokenText);
-      setDisplayText(spokenText);
-      setDisplaySpeaking(isSpeaking);
+    if (spokenText && !firstSpeak) {
+      console.log("Refreshing lesson content");
+      refresh();
+      setFirstSpeak(true);
     }
-  }, [spokenText, isSpeaking]);
+  }, [spokenText, firstSpeak, refresh]);
 
   return (
     <div className="flex flex-col space-y-4 w-full max-w-2xl mx-auto p-4">
       <VoiceTranscript
-        text={displayText}
-        isSpeaking={displaySpeaking}
-        key={displayText} // Force re-render when text changes
+        text={spokenText}
+        isSpeaking={isSpeaking}
+      // key={spokenText} // Force re-render when text changes
       />
-      {/* <FlashCardModal isOpen={true} onClose={() => { }} cards={[]} /> */}
+      <FlashCardModal isOpen={flashCardsOpen} onClose={() => { toggleFlashCardsModal() }} cards={content?.content.flash_cards ?? []} />
       {/* <AgentBar spokenText={spokenText} /> */}
     </div>
   );

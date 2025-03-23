@@ -1,6 +1,5 @@
 "use client";
 
-import { useAppStore } from "@/state/appStore";
 import { motion } from "framer-motion";
 import { Loader2, Volume2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -11,40 +10,71 @@ interface VoiceTranscriptProps {
 }
 
 export const VoiceTranscript = ({ text, isSpeaking }: VoiceTranscriptProps) => {
-  const { transcript } = useAppStore();
+  // Remove dependency on global state
+  // const { transcript } = useAppStore();
   const [visibleWords, setVisibleWords] = useState<string[]>([]);
 
   // Process text with proper spaces
   const processTranscript = useMemo(() => {
     // Regular expression to insert spaces between words (looking for lowercase to uppercase transitions)
-    if (!transcript) return "";
+    if (!text) return "";
+
+    console.log("Processing text input:", text);
 
     // Add spaces before uppercase letters that follow lowercase letters
-    const formatted = transcript.replace(/([a-z])([A-Z])/g, '$1 $2');
+    const formatted = text.replace(/([a-z])([A-Z])/g, '$1 $2');
     // Add spaces before numbers that follow letters
     const withNumberSpaces = formatted.replace(/([a-zA-Z])(\d)/g, '$1 $2');
     // Add spaces after punctuation that isn't followed by a space
-    return withNumberSpaces.replace(/([.,!?;:])([a-zA-Z0-9])/g, '$1 $2');
-  }, [transcript]);
+    const processed = withNumberSpaces.replace(/([.,!?;:])([a-zA-Z0-9])/g, '$1 $2');
+
+    console.log("Processed text:", processed);
+    return processed;
+  }, [text]);
 
   const words = useMemo(() => {
-    return processTranscript?.split(/\s+/).filter(Boolean) || [];
+    const splitWords = processTranscript?.split(/\s+/).filter(Boolean) || [];
+    console.log("Split words:", splitWords);
+
+    // Deduplicate adjacent repeated words to fix the doubling issue
+    const deduplicatedWords = splitWords.filter((word, i, arr) =>
+      i === 0 || word !== arr[i - 1]
+    );
+
+    console.log("Deduplicated words:", deduplicatedWords);
+    return deduplicatedWords;
   }, [processTranscript]);
 
   // Gradually reveal words for a more controlled animation
   useEffect(() => {
     if (!words.length) return;
 
-    const showWords = async () => {
-      setVisibleWords([]);
-      for (let i = 0; i < words.length; i++) {
-        // Slow down the animation - increased delay from 80ms to 150ms
-        await new Promise(r => setTimeout(r, 150));
-        setVisibleWords(prev => [...prev, words[i]]);
-      }
-    };
+    console.log("Setting up word animation for", words.length, "words");
 
-    showWords();
+    // Start with no visible words
+    setVisibleWords([]);
+
+    // Show words gradually
+    let currentIndex = 0;
+
+    // Use a simple interval instead of a recursive setTimeout
+    const interval = setInterval(() => {
+      if (currentIndex >= words.length) {
+        clearInterval(interval);
+        return;
+      }
+
+      setVisibleWords(prev => {
+        // Important: Create a new array reference to ensure render
+        const newWords = [...prev, words[currentIndex]];
+        return newWords;
+      });
+
+      currentIndex++;
+    }, 100); // Show a new word every 100ms
+
+    // Cleanup interval on unmount or when words change
+    return () => clearInterval(interval);
   }, [words]);
 
   return (
@@ -63,7 +93,7 @@ export const VoiceTranscript = ({ text, isSpeaking }: VoiceTranscriptProps) => {
             initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{
-              duration: 0.5, // Slower animation (0.3 to 0.5)
+              duration: 0.5,
               ease: "easeOut"
             }}
             className="inline-block mx-[0.3em] my-[0.15em]"
