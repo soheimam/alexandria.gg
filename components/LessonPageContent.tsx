@@ -34,6 +34,7 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
 
   return (
     <div className="flex flex-col space-y-4 w-full max-w-2xl mx-auto p-4">
+   
       <VoiceTranscript
         text={spokenText}
         isSpeaking={isSpeaking}
