@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
+import React, { useState } from 'react';
 import { FlashCard, FlashCardData } from './FlashCard';
 import styles from './FlashCardModal.module.css';
 
@@ -14,6 +14,44 @@ export const FlashCardModal: React.FC<FlashCardModalProps> = ({
     onClose,
     cards
 }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState<'left' | 'right' | null>(null);
+
+    // Reset state when modal closes
+    const handleClose = () => {
+        onClose();
+        setTimeout(() => {
+            setCurrentIndex(0);
+            setDirection(null);
+        }, 300);
+    };
+
+    const handleSwipe = (direction: 'left' | 'right') => {
+        setDirection(direction);
+        setTimeout(() => {
+            if (currentIndex < cards.length - 1) {
+                setCurrentIndex(currentIndex + 1);
+            } else {
+                // All cards completed
+                handleClose();
+            }
+            setDirection(null);
+        }, 200);
+    };
+
+    const getCardStackElements = () => {
+        return cards.slice(currentIndex, currentIndex + 3).map((card, idx) => (
+            <FlashCard
+                key={card.id}
+                card={card}
+                isActive={idx === 0}
+                index={idx}
+                totalCards={cards.length}
+                onSwipe={idx === 0 ? handleSwipe : undefined}
+            />
+        ));
+    };
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -30,18 +68,22 @@ export const FlashCardModal: React.FC<FlashCardModalProps> = ({
                         exit={{ scale: 0.8, opacity: 0 }}
                         transition={{ type: "spring", damping: 25 }}
                     >
-                        <button className={styles.closeButton} onClick={onClose}>
+                        <div className={styles.progressBar}>
+                            <div 
+                                className={styles.progressFill} 
+                                style={{ width: `${(currentIndex / cards.length) * 100}%` }}
+                            />
+                        </div>
+                        
+                        <button className={styles.closeButton} onClick={handleClose}>
                             ×
                         </button>
 
                         <h2 className={styles.title}>Flash Cards</h2>
+                        <p className={styles.instructions}>Swipe or tap to reveal answer</p>
 
-                        <div className={styles.cardGrid}>
-                            {cards.slice(0, 6).map((card) => (
-                                <div key={card.id} className={styles.cardWrapper}>
-                                    <FlashCard card={card} />
-                                </div>
-                            ))}
+                        <div className={styles.cardStack}>
+                            {getCardStackElements()}
                         </div>
                     </motion.div>
                 </motion.div>
