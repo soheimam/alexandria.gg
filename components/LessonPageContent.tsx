@@ -8,6 +8,7 @@ import Lottie from "lottie-react";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { FlashCardModal } from "./FlashCards/FlashCardModal";
+import { Button } from "./ui/button";
 
 export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
   const { flashCardsOpen, toggleFlashCardsModal } = useAppStore();
@@ -74,7 +75,7 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
     <div className="flex flex-col space-y-4 w-full max-w-2xl mx-auto p-4">
       {content && (
         <div className="mb-2">
-          <div className="flex justify-between items-center mb-3">
+          <div className="flex flex-col justify-between space-y-2 mb-3">
             <div>
               <h2 className="text-xl font-bold text-purple-900">{content.content.topic || "Your Lesson"}</h2>
               {content.content.difficulty && (
@@ -85,7 +86,7 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
                 </div>
               )}
             </div>
-            <button
+            <Button
               onClick={() => toggleFlashCardsModal()}
               className="flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm transition-colors"
             >
@@ -95,7 +96,7 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
                 <path d="M8 12h8" />
               </svg>
               Flash Cards
-            </button>
+            </Button>
           </div>
           <div className="h-px bg-purple-200 w-full"></div>
         </div>
