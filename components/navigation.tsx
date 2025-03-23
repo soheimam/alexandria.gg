@@ -23,13 +23,7 @@ export function Navigation() {
           <div className="flex items-center space-x-3">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.jpeg"
-                alt="Andri Logo"
-                width={38}
-                height={38}
-                className="rounded-full"
-              />
+              
             </Link>
 
             {/* Navigation links */}
