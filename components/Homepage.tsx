@@ -19,10 +19,11 @@ export const Homepage = () => {
   const router = useRouter();
 
   const generateId = (url: string) => {
-    // Simple hash function for URL
+    // Simple hash function for URL, language and difficulty
+    const hashString = `${url}:${language}:${difficulty}`;
     let hash = 0;
-    for (let i = 0; i < url.length; i++) {
-      const char = url.charCodeAt(i);
+    for (let i = 0; i < hashString.length; i++) {
+      const char = hashString.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32bit integer
     }
