@@ -175,7 +175,7 @@ export default function LessonDiscoveryPage() {
                             filteredLessons.map((item) => (
                                 <LessonCard
                                     key={item.SK}
-                                    id={item.SK.split('#')[1]} // Assuming SK format is "CONTENT#lessonId"
+                                    id={item.content.id}
                                     topic={item.content.topic}
                                     language={item.content.language}
                                     difficulty={item.content.difficulty}

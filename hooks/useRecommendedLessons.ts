@@ -14,6 +14,7 @@ interface LessonContent {
     flash_cards: FlashCard[];
     agent_system_prompt: string;
     topic: string;
+    id: string;
     language: string;
     agent_first_message: string;
     url: string;
