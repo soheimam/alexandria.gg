@@ -4,15 +4,43 @@ import { FlashCardModal } from './FlashCardModal';
 import styles from './FlashCards.module.css';
 
 const exampleCards: FlashCardData[] = [
-    { id: '1', question: 'What is React?', answer: 'A JavaScript library for building user interfaces' },
-    { id: '2', question: 'Is JavaScript typed?', answer: 'False. JavaScript is dynamically typed' },
-    { id: '3', question: 'HTML stands for?', answer: 'HyperText Markup Language' },
-    { id: '4', question: 'CSS specificity order', answer: 'Inline > ID > Class > Element' },
-    { id: '5', question: 'What is Redux?', answer: 'A state management library' },
-    { id: '6', question: 'React uses Virtual DOM', answer: 'True' },
+    { 
+        id: '1', 
+        question: 'What type of design does OnchainKit offer?', 
+        answer: 'A comprehensive, composable design system for web3 applications with React components' 
+    },
+    { 
+        id: '2', 
+        question: 'What is the primary component in OnchainKit for wallet connections?', 
+        answer: 'ConnectWallet component' 
+    },
+    { 
+        id: '3', 
+        question: 'Which OnchainKit component is used for displaying user identities?', 
+        answer: 'The Identity component with Avatar and Name subcomponents' 
+    },
+    { 
+        id: '4', 
+        question: 'What is required at the root of an OnchainKit application?', 
+        answer: 'OnchainKitProvider component' 
+    },
+    { 
+        id: '5', 
+        question: 'Which OnchainKit component is used for handling transactions?', 
+        answer: 'Transaction component' 
+    },
+    { 
+        id: '6', 
+        question: 'What is the purpose of Frame components in OnchainKit?', 
+        answer: 'To create and manage Farcaster Frames with proper metadata and validation' 
+    },
 ];
 
-export const FlashCards: React.FC = () => {
+interface FlashCardsProps {
+    cards?: FlashCardData[];
+}
+
+export const FlashCards: React.FC<FlashCardsProps> = ({ cards = exampleCards }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => setIsModalOpen(true);
@@ -21,13 +49,13 @@ export const FlashCards: React.FC = () => {
     return (
         <div className={styles.container}>
             <button className={styles.openButton} onClick={openModal}>
-                Open Flash Cards
+                Study Flash Cards
             </button>
 
             <FlashCardModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
-                cards={exampleCards}
+                cards={cards}
             />
         </div>
     );
