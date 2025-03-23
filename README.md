@@ -1,6 +1,6 @@
 # Alexandria
 
-## Turn Any Content Into an Interactive Learning Experience
+## Turn Any Link into a Lesson
 
 Alexandria is an state of the art educational platform that transforms any web content into personalized, interactive learning experiences. With Alexandria, users can instantly convert articles, videos, blog posts, research papers, or any URL into engaging lessons with voice narration, flashcards, and adaptive difficulty settings.
 
