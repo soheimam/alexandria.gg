@@ -14,7 +14,7 @@ export default function LessonDiscoveryPage() {
     const { address } = useAccount();
     const { data: name } = useName({ address: address as `0x${string}`, chain: base });
     const { lessons, isLoading, isError, refresh } = useRecommendedLessons(address as string, {
-        revalidateOnFocus: true,
+        revalidateOnFocus: false,
         refreshInterval: 0,
         limit: 20
     });
@@ -22,6 +22,16 @@ export default function LessonDiscoveryPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
     const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(null);
+
+    // Store initial order of lessons
+    const [initialOrder, setInitialOrder] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (lessons && lessons.length && initialOrder.length === 0) {
+            // Store initial order by lesson IDs 
+            setInitialOrder(lessons.map(lesson => lesson.id));
+        }
+    }, [lessons, initialOrder.length]);
 
     const difficultyOptions = [
         { label: 'All Levels', value: null },
@@ -39,7 +49,7 @@ export default function LessonDiscoveryPage() {
             .sort()
         : [];
 
-    // Filter lessons based on search and filters
+    // Filter lessons based on search and filters, maintain stable order
     const filteredLessons = lessons.filter(lesson => {
         const matchesSearch = !searchQuery ||
             lesson.content.topic.toLowerCase().includes(searchQuery.toLowerCase());
@@ -55,14 +65,20 @@ export default function LessonDiscoveryPage() {
             (selectedDifficulty === 10 && lesson.content.difficulty > 8);
 
         return matchesSearch && matchesLanguage && matchesDifficulty;
+    }).sort((a, b) => {
+        // Sort based on initial order to maintain consistency
+        if (initialOrder.length) {
+            return initialOrder.indexOf(a.id) - initialOrder.indexOf(b.id);
+        }
+        return 0;
     });
 
-    // Initial fetch on component mount
+    // Initial fetch on component mount - only fetch once
     useEffect(() => {
-        if (address) {
+        if (address && lessons.length === 0) {
             refresh();
         }
-    }, [refresh, address]);
+    }, [address]);
 
     // If no wallet is connected, show connect wallet UI
     if (!address) {
@@ -175,17 +191,25 @@ export default function LessonDiscoveryPage() {
                             </div>
                         ) : (
                             // Lessons
-                            filteredLessons.map((item) => (
-                                <LessonCard
-                                    key={item.SK}
-                                    sourceUrl={item.content.url}
-                                    username={name || address as string}
-                                    id={item.id}
-                                    topic={item.content.topic}
-                                    language={item.content.language}
-                                    difficulty={item.content.difficulty}
-                                />
-                            ))
+                            filteredLessons.map((item) => {
+                                // Extract creator address from SK
+                                // Format: "USER#0x7cd70b1cC6d17F750ec8bb62047DB75a67B951db#68236cba"
+                                const creatorAddress = item.SK ?
+                                    item.SK.split('#')[1] : undefined;
+
+                                return (
+                                    <LessonCard
+                                        key={item.SK}
+                                        sourceUrl={item.content.url}
+                                        username={name || address as string}
+                                        id={item.id}
+                                        topic={item.content.topic}
+                                        language={item.content.language}
+                                        difficulty={item.content.difficulty}
+                                        creator={creatorAddress}
+                                    />
+                                );
+                            })
                         )}
                     </div>
                 </div>
