@@ -271,7 +271,7 @@ export default function LessonDiscoveryPage() {
                             <div className="col-span-full text-center p-8">
                                 {viewMode === 'personal' ? (
                                     <>
-                                        <p className="text-gray-600 text-lg">You haven't created any lessons yet</p>
+                                        <p className="text-gray-600 text-lg">You haven&apos;t created any lessons yet</p>
                                         <p className="text-gray-500 mt-2">Create your first lesson to see it here!</p>
                                     </>
                                 ) : (
