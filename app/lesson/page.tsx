@@ -178,6 +178,7 @@ export default function LessonDiscoveryPage() {
                             filteredLessons.map((item) => (
                                 <LessonCard
                                     key={item.SK}
+                                    sourceUrl={item.content.url}
                                     username={name || address as string}
                                     id={item.id}
                                     topic={item.content.topic}
