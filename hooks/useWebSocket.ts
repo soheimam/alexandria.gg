@@ -78,6 +78,10 @@ export const useWebSocket = (userId: string, lessonId: string) => {
           },
         });
       } else if (data.type === "status_update") {
+        toast.success("Processing content...", {
+          description: data.message,
+          duration: 8000,
+        });
         // const session = await startSession({
         //   agentId: process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID as string,
         //   overrides: {
@@ -183,7 +187,7 @@ export const useWebSocket = (userId: string, lessonId: string) => {
     };
   }, [userId, setSocket]);
 
-  const send = useCallback((data: any) => {
+  const send = useCallback(async (data: any) => {
     console.log("Sending message:", data);
     console.log("WebSocket readyState:", wsRef.current?.readyState);
     console.log("The socket is ", wsRef.current);
@@ -191,7 +195,11 @@ export const useWebSocket = (userId: string, lessonId: string) => {
       data.action = "sendMessage";
       wsRef.current.send(JSON.stringify(data));
     } else {
-      throw new Error("WebSocket is not connected");
+      console.log("WebSocket is not connected, trying to connect");
+      connect();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      data.action = "sendMessage";
+      wsRef.current?.send(JSON.stringify(data));
     }
   }, []);
 

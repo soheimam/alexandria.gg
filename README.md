@@ -4,6 +4,12 @@
 
 Alexandria is an state of the art educational platform that transforms any web content into personalized, interactive learning experiences. With Alexandria, users can instantly convert articles, videos, blog posts, research papers, or any URL into engaging lessons with voice narration, flashcards, and adaptive difficulty settings.
 
+## Our Name
+
+The name "Alexandria" pays homage to the ancient [Library of Alexandria](https://en.wikipedia.org/wiki/Library_of_Alexandria), which was one of the largest and most significant libraries of the ancient world. Established in the 3rd century BCE in Alexandria, Egypt, it aimed to collect all the world's knowledge under one roof.
+
+Just as the original Library of Alexandria was a center for learning, scholarship, and the preservation of knowledge, our platform aspires to democratize education by transforming any content into accessible, personalized learning experiences. We're carrying forward that ancient vision of universal access to knowledge with modern technology.
+
 ## Why Alexandria Exists
 
 The challenge isn't finding content—it's effectively consuming and retaining knowledge from that content. Alexandria was created to solve several key problems:

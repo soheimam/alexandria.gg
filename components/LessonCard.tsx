@@ -88,9 +88,6 @@ export const LessonCard = ({
         try {
             if (!isConnected) {
                 connect();
-                if (!isConnected) {
-                    throw new Error("Failed to establish connection");
-                }
             }
 
             send({
