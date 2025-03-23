@@ -175,7 +175,7 @@ export default function LessonDiscoveryPage() {
                             filteredLessons.map((item) => (
                                 <LessonCard
                                     key={item.SK}
-                                    id={item.content.id}
+                                    id={item.id}
                                     topic={item.content.topic}
                                     language={item.content.language}
                                     difficulty={item.content.difficulty}
