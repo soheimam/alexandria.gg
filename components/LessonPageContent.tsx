@@ -77,8 +77,8 @@ export const LessonPageContent = ({ lessonId }: { lessonId: string }) => {
         <div className="mb-2">
           <div className="flex flex-col justify-between space-y-2 mb-3">
             <div>
-              <h2 className="text-xl font-bold text-purple-900">{content.content.topic || "Your Lesson"}</h2>
-              {content.content.difficulty && (
+              <h2 className="text-xl font-bold text-purple-900">{content?.content?.topic || "Your Lesson"}</h2>
+              {content?.content?.difficulty && (
                 <div className="mt-1">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                     {content.content.difficulty} level
