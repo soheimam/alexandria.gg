@@ -2,6 +2,7 @@
 
 import { LessonCard } from "@/components/LessonCard";
 import { LessonCardSkeleton } from "@/components/LessonCardSkeleton";
+import { Navigation } from "@/components/navigation";
 import { WalletConnect } from "@/components/walletConnect";
 import { useRecommendedLessons } from "@/hooks/useRecommendedLessons";
 import { useEffect, useState } from "react";
@@ -77,6 +78,7 @@ export default function LessonDiscoveryPage() {
 
     return (
         <main className="min-h-screen bg-[#f0e6f5] p-4 md:p-8">
+            <Navigation />
             <div className="max-w-6xl mx-auto">
                 <div className="flex flex-col gap-6">
                     {/* Header */}
